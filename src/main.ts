@@ -2,6 +2,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store, { Store } from './store/index';
+// 其他 ts 文件在直接解构引入的时候，也可以获得智能提示
+// import { state, getters, commit, dispatch } from './store/index';
 
 Vue.config.productionTip = false;
 
@@ -23,6 +25,7 @@ Vue.prototype.$$emit = (that: any, mutationName: string, ...params: any) => {
   });
 };
 
+// 将改造过后的 Store 类型声明到 vue 的原型上，这样就可以在.vue 文件中获得 IDE 的智能提示了
 declare module 'vue/types/vue' {
   interface Vue {
     $$store: Store;
