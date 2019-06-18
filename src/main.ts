@@ -15,6 +15,7 @@ const app = new Vue({
 
 Vue.prototype.$$store = app.$store;
 
+// 新增 $$emit 方法, 将 $emit 封装成 Promise (需被调用端实现success和fail方法)
 Vue.prototype.$$emit = (that: any, mutationName: string, ...params: any) => {
   if (!mutationName) throw new Error('$$emit need mutationName param');
   return new Promise((resolve, reject) => {

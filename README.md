@@ -135,7 +135,7 @@ const actions = {
 
 ### 1.  改造 vuex 部分
 
-下面是最基本的 vuex 代码
+以下是最基本的 vuex 代码
 
 **/store/modules/auth.ts**
 
@@ -204,7 +204,9 @@ export default store;
 
 ****
 
-***下面我们给它加一点代码***
+
+
+### ***下面我们给它加一点 `Magic`***
 
 **/store/index.ts**
 
@@ -374,6 +376,7 @@ const app = new Vue({
 }).$mount('#app');
 
 // 将改造过后的 Store 类型声明到 vue 的原型上，这样就可以在.vue 文件中获得 IDE 的智能提示了
+// 因为下面去声明一个新的 Store 类型的时候，无法覆盖 vue 原有的 $store 类型声明，所以采取一个新的名字 $$store 来应用新的类型，本质上都是 app.$store
 Vue.prototype.$$store = app.$store;
 
 declare module 'vue/types/vue' {
@@ -388,7 +391,9 @@ declare module 'vue/types/vue' {
 
 ### 至此 vuex 的 typescript 支持改造就完成了，可以愉快的使用 vuex 又不用来回切文件找名字了，并且名字不对的时候 ts 还会校验错误，妈妈再也不用担心我写错名字了~
 
+ps: 这个方案可能还不够好（rootGetters 类型没有实现等...），欢迎各位交流学习
 
+ppps: 本来想着将这些 ts 类型的代码抽离成一个工具库，但是初步想了一下有点难度，就先以 demo 的形式分享一下
 
 
 
