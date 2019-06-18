@@ -14,5 +14,11 @@ export default Vue.extend({
   components: {
     HelloWorld,
   },
+  created() {
+    this.$$store.commit('setToken', '1');
+    const a = this.$$store.getters.isLogin;
+    const a2 = this.$$store.state.auth.token;
+    this.$$store.dispatch('updateAuthData', 1);
+  },
 });
 </script>
