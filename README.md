@@ -2,7 +2,7 @@
 
 传统 vuex 编码让人觉得麻烦的一点就是 state、getters、mutation、dispatch 在调用时无法获得编辑器的智能提示，必须切换文件去查找。本以为用上 typescript 后这个问题可以得到解决，却发现并没有...
 
-在找寻了一会儿各种解决方案后，觉得都存在这样或那样的问题，所以便自己写了这么一个解决方案。
+在找寻了一会儿各种解决方案后，觉得都存在这样或那样的问题（类型需要重复定义、侵入严重，和原本写法完全不一样），所以便自己写了这么一个解决方案，在获得了typescript的智能提示支持下却不需要重复写各种type和interface，和vuex原本写法保持一致，对业务代码侵入极小。
 
 [demo 项目](https://github.com/BarneyZhao/vuex-typescript-demo)由 vue-cli 3 生成，IDE 为 VSCODE
 
