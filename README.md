@@ -4,13 +4,13 @@
 
 在找寻了一会儿各种解决方案后，觉得都存在这样或那样的问题，所以便自己写了这么一个解决方案。
 
-demo 项目由 vue-cli 3 生成，IDE 为 VSCODE
+[demo 项目](https://github.com/BarneyZhao/vuex-typescript-demo)由 vue-cli 3 生成，IDE 为 VSCODE
 
 ## 效果展示
 
 ### 1.   state
 
-![avatar](./mdimgs/WX20190618-155037.png)
+![avatar](./mdimgs/WX20190618-155234.png)
 
 ![avatar](./mdimgs/WX20190618-155250.png)
 
@@ -49,7 +49,11 @@ const moduleGetters = {
 
 ![avatar](./mdimgs/WX20190618-155037.png)
 
-commit 会显示所有注册的 mutation
+![avatar](./mdimgs/WX20190618-155113.png)
+
+commit 会显示所有注册的 mutation 以及对应 payload 的类型， 如果 payload 类型不对还会报错
+
+![avatar](./mdimgs/WX20190618-155122.png)
 
 
 
@@ -135,7 +139,7 @@ const actions = {
 
 ### 1.  改造 vuex 部分
 
-以下是最基本的 vuex 代码
+先来看看最基本的 vuex 代码
 
 **/store/modules/auth.ts**
 
@@ -284,7 +288,7 @@ export interface Store {
 
 
 
-为了避免循环引用，我们需要在 /src/ 下面建一个 .d.ts 文件 ，来让 module 可以引用到全局的 State (rootState、commit、dispatch)
+为了避免循环引用，我们需要在 /src/types/ 下面建一个 .d.ts 文件 ，来让各个 module 可以引用到全局的 State (rootState、commit、dispatch)
 
 **/src/types/store.d.ts**
 
@@ -305,7 +309,7 @@ export interface ActionContext<S, G> {
 
 
 
-**最后去修改我们的 module**
+**最后去修改我们的 module（仅举例auth）**
 
 **/src/store/modules/auth.ts**
 
@@ -389,15 +393,17 @@ declare module 'vue/types/vue' {
 
 
 
-### 至此 vuex 的 typescript 支持改造就完成了，可以愉快的使用 vuex 又不用来回切文件找名字了，并且名字不对的时候 ts 还会校验错误，妈妈再也不用担心我写错名字了~
+### 至此 vuex 的 typescript 支持改造就完成了（其中 /src/store/index.ts 完全可以用nodejs写个脚本读取所有module文件名然后用mustache根据模板来生成，每次新增模块时跑一行命令就更新了），之后就可以愉快的使用 vuex 原本的写法又不用来回切文件找各种命名了，并且写错的时候 ts 还会校验错误，妈妈再也不用担心我犯这种低级错误了~
 
 ps: 这个方案可能还不够好（rootGetters 类型没有实现等...），欢迎各位交流学习
 
-ppps: 本来想着将这些 ts 类型的代码抽离成一个工具库，但是初步想了一下有点难度，就先以 demo 的形式分享一下
+ppps: 下一步想将这些 ts 类型的代码抽离成一个工具库，但是初步想了一下有点难度，就先以 demo 的形式分享一下
 
 
 
-## demo 
+## demo
+
+地址：[github](https://github.com/BarneyZhao/vuex-typescript-demo)
 
 代码拉下来以后
 
@@ -406,3 +412,5 @@ yarn install
 ```
 
 之后就可以在 .vue 文件和 .ts 文件中体验 vuex 获得智能提示的便利了~
+
+如果对你有帮助的话，麻烦给个star呗~
